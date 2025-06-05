@@ -171,6 +171,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            position: relative; /* Needed for absolute positioning inside */
             transition: box-shadow 0.2s;
         }
         .explore-tile:hover {
@@ -185,22 +186,29 @@
         .explore-tile-desc {
             height: 40%;
             background: #fff;
-            padding: 12px 16px 8px 16px;
-            font-size: 1em;
+            padding: 12px 16px 48px 16px; /* Extra bottom padding for button space */
+            font-size: 80%; /* Set font size to 80% */
             color: #111d2b;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            flex: 1 1 auto;
+            position: relative;
         }
         .show-interest-btn {
-            margin-top: 10px;
-            padding: 8px 18px;
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            margin: 0;
+            padding: 10px 0;
             background: #111d2b;
             color: #fff;
             border: none;
             border-radius: 0px;
             font-size: 1em;
             cursor: pointer;
+            width: auto;
         }
         .explore-pagination {
             display: flex;
@@ -378,7 +386,7 @@
 <body>
     <header id="mainHeader">
         <nav class="nav-bar">
-            <span class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Saunders</span>
+            <span class="logo" onclick="window.location.href='home.html'" style="cursor:pointer;">Saunders</span>
             <div class="dropdown">
                 <button class="dropdown-btn">Services</button>
                 <div class="dropdown-content">
