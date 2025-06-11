@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script>
+        (function() {
+            var width = window.innerWidth;
+            if (width <= 1024 && !window.location.pathname.endsWith('mbindex.html')) {
+                window.location.href = 'mbindex.html';
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saunders & Associates</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            color: #fff;
+            padding-top: 72px; /* Prevent content from being hidden under the fixed header */
+            overflow-x: hidden; /* Keep only here if needed */
+        }
+        header {
+            position: fixed; /* Changed from sticky to fixed */
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            background: rgba(255,255,255,0.0);
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            box-shadow: none;
+        }
+        header.scrolled {
+            background: #fff; /* No opacity, solid white */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            padding: 0 3vw 0 0;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-right: auto;
+            margin-left: 3vw;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding-top: 18px;
+            padding-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .nav-bar a,
+        .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s, padding-top 0.2s, padding-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        header.scrolled .logo {
+            color: #111d2b;
+        }
+        header.scrolled .nav-bar a,
+        header.scrolled .dropdown-btn {
+            color: #111d2b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.3s, border-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+        }
+        header.scrolled .dropdown-btn,
+        header.scrolled .nav-bar a {
+            color: #111d2b;
+        }
+        .dropdown-btn:hover,
+        .nav-bar a:hover {
+            background: none !important;
+            box-shadow: none !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            border-radius: 0px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; /* Changed from 110% to 100% for closer dropdown */
+            background: #fff !important; /* Always white background */
+            min-width: 140px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            border-radius: 0px;
+            z-index: 200;
+        }
+        .dropdown-content a {
+            color: #111d2b !important; /* Always blue text */
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1em;
+            border-radius: 0px;
+            background: #fff !important;
+            transition: color 0.3s, background 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: none !important;
+            color: #111d2b !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #111d2b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s;
+        }
+        /* Responsive typography and layout */
+        html {
+            font-size: 16px;
+        }
+        @media (max-width: 1200px) {
+            .fullview-blue h1 { font-size: 3.2em !important; }
+            #expertise h2 { font-size: 2.5em !important; }
+        }
+        @media (max-width: 900px) {
+            .fullview-blue h1 { font-size: 2.2em !important; }
+            #expertise h2 { font-size: 2em !important; }
+            .expertise-item { min-width: 180px !important; max-width: 90vw !important; padding: 32px 12px !important; }
+        }
+        @media (max-width: 700px) {
+            body {
+                padding-top: 56px;
+            }
+            header {
+                height: 56px;
+            }
+            .logo { font-size: 1.2em; }
+            .nav-bar { gap: 10px; padding-right: 1vw; }
+            .fullview-blue {
+                padding-top: 80px !important;
+                min-height: 80vh !important;
+                align-items: flex-start !important;
+            }
+            .fullview-blue h1 {
+                font-size: 1.5em !important;
+                margin-left: 4vw !important;
+            }
+            .fullview-blue h3 {
+                font-size: 1em !important;
+                margin-left: 4vw !important;
+            }
+            .fullview-blue a[style*="margin: 40px"] {
+                margin-left: 4vw !important;
+                padding: 10px 18px !important;
+                font-size: 1em !important;
+            }
+            .down-arrow {
+                margin-top: 32px !important;
+            }
+            #expertise h2 {
+                font-size: 1.4em !important;
+                margin-top: -80px !important;
+            }
+            #expertise .expertise-item {
+                min-width: 120px !important;
+                max-width: 98vw !important;
+                padding: 18px 4vw !important;
+                font-size: 0.95em !important;
+            }
+            #negotiate .negotiation-images {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            #negotiate .negotiation-images img {
+                width: 180px !important;
+                height: 180px !important;
+                top: 0 !important;
+                left: 0 !important;
+            }
+            #negotiate .negotiation-images img:nth-child(2) {
+                top: 80px !important;
+                left: 40px !important;
+                width: 120px !important;
+                height: 120px !important;
+            }
+            #negotiate .section-content {
+                margin-left: 0 !important;
+                max-width: 98vw !important;
+                padding: 0 2vw !important;
+            }
+            #negotiate h2 {
+                font-size: 1.3em !important;
+                margin-top: 120px !important;
+            }
+            #negotiate p {
+                font-size: 1em !important;
+            }
+            #does-this-sound-like-you {
+                padding: 30px 0 !important;
+            }
+            #does-this-sound-like-you h2 {
+                font-size: 1.3em !important;
+            }
+            #does-this-sound-like-you p {
+                font-size: 1em !important;
+            }
+            #does-this-sound-like-you div[style*="border-right"] {
+                border-right: none !important;
+                padding-right: 0 !important;
+            }
+        }
+        @media (max-width: 500px) {
+            .fullview-blue h1 { font-size: 1.1em !important; }
+            .fullview-blue h3 { font-size: 0.9em !important; }
+            .footer-blue { font-size: 0.9em !important; padding: 14px 0 12px 0 !important; }
+        }
+        /* Make nav-bar wrap on small screens */
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 0 1vw 0 0;
+            }
+            .nav-bar a, .dropdown-btn {
+                font-size: 0.95em;
+                padding: 4px 8px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+        }
+        /* Ensure images and sections don't overflow */
+        img, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        section, div, h1, h2, h3, p {
+            box-sizing: border-box;
+        }
+        .fullview-blue {
+            min-height: 100vh;
+            width: 100%; /* Make sure this is 100%, not 100vw */
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .fullview-blue h1 {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 5em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        /* Expertise section */
+        #expertise {
+            background: #fff;
+            color: #111d2b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+        #expertise h2 {
+            text-align: center;
+            color: #111d2b;
+            margin-bottom: 48px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4em; /* 5/6 of the welcome section's 5em font size */
+        }
+        #expertise .expertise-item {
+            background: #fff;
+            color: #111d2b;
+            border-left: 2px solid #111d2b; /* Thinner border */
+            padding: 48px 36px;
+            min-width: 260px;
+            max-width: 340px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #expertise .expertise-item h3 {
+            margin-top: 0;
+            color: #111d2b;
+        }
+        #expertise .expertise-item p {
+            margin-bottom: 0;
+            color: #111d2b;
+        }
+        /* Negotiate section */
+        #negotiate {
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0;
+        }
+        #negotiate .negotiation-images {
+            position: relative;
+            z-index: 2;
+            width: 420px;
+            height: 420px;
+        }
+        #negotiate .negotiation-images img {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            width: 260px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            opacity: 0.98;
+            border: 6px solid #fff;
+        }
+        #negotiate .negotiation-images img:nth-child(2) {
+            top: 160px;
+            left: 140px;
+            width: 180px;
+            height: 180px;
+        }
+        #negotiate .section-content {
+            margin-left: 60px;
+            max-width: 480px;
+            z-index: 2;
+        }
+        #negotiate h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #111d2b;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
+        #negotiate p {
+            font-size: 1.25em;
+            color: #111d2b;
+            line-height: 1.6;
+        }
+        /* New section styles */
+        #does-this-sound-like-you {
+            background: #fff;
+            min-height: 60vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0;
+        }
+        #does-this-sound_like_you h2 {
+            color: #111d2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            margin-bottom: 24px;
+        }
+        #does-this-sound-like-you p {
+            color: #111d2b;
+            font-size: 1.3em;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+        .footer-blue {
+            width: 100%;
+            background: #111d2b;
+            color: #fff;
+            text-align: center;
+            padding: 22px 0 20px 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            font-family: 'Open Sans', sans-serif;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 24px;"></div> <!-- Add space above the header -->
+    <header id="mainHeader">
+        <nav class="nav-bar">
+            <span class="logo">Saunders</span>
+            <div class="dropdown">
+                <button class="dropdown-btn">Services</button>
+                <div class="dropdown-content">
+                    <a href= "contact.html">Sell Your Business</a>
+                    <a href= "contact.html">Value your Business</a>
+                    <a href="opportunity.html">Buy a Business</a>
+                </div>
+            </div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+    <section class="fullview-blue" style="position:relative; overflow:hidden; justify-content:flex-start; align-items:flex-start; padding-top:140px; margin-bottom:0px;">
+        <div style="position:relative; z-index:2; width:100%;">
+            <h1 style="color:#fff; font-family:'Playfair Display',serif; font-size:5em; font-weight:700; margin:0 0 0 7vw; letter-spacing:2px; text-align:left; line-height:1.1;">
+                The future<br>
+                of your<br>
+                business starts<br>
+                here
+            </h1>
+            <h3 style="color:#fff; font-family:'Open Sans',sans-serif; font-size:1.6em; font-weight:100; margin:32px 0 0 7vw; text-align:left; letter-spacing:1px;">
+                Trusted advisors for business owners 
+                <br>ready to take the next step.
+            </h3>
+            <a href="contact.html" style="
+                display: inline-block;
+                margin: 40px 0 0 7vw;
+                padding: 14px 38px;
+                border: 2px solid #fff;
+                color: #fff;
+                background: transparent;
+                font-size: 1.2em;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 200;
+                border-radius: 0px;
+                text-decoration: none;
+                letter-spacing: 1px;
+                transition: background 0.2s, color 0.2s;
+                text-align: left;
+                cursor: pointer;
+            " onmouseover="this.style.background='#fff';this.style.color='#111d2b';"
+              onmouseout="this.style.background='transparent';this.style.color='#fff';">
+                Get your evaluation
+            </a>
+        </div>
+        <!-- Down arrow to scroll to next section -->
+        <a href="#expertise" class="down-arrow" style="margin:48px auto 0 auto; display:flex; justify-content:center; align-items:center; cursor:pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <path d="M10 16l10 10 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </section>
+    <section id="expertise" style="margin-bottom:-120px;">
+        <h2 style="text-align:center; color:#111d2b; margin-bottom:48px; font-family:'Playfair Display',serif; font-size:4em; margin-top: -200px;">
+            Why Saunders?
+        </h2>
+        <div style="display:flex; justify-content:center; align-items:center; gap:60px; flex-wrap:wrap; width:100%; max-width:1200px;">
+            <div class="expertise-item" style="background:#fff; color:#111d2b; border-left:2px solid #111d2b; padding:48px 36px; min-width:260px; max-width:340px; box-sizing:border-box; text-align:center;">
+                <div class="countup" data-count="98" data-suffix="%" style="font-size:3em; font-weight:700; color:#111d2b; margin-bottom:12px;">0%</div>
+                <div style="font-size:1.2em; color:#111d2b; font-weight:600; margin-bottom:8px;">Client Satisfaction</div>
+                <p style="margin:0; color:#111d2b;">Our clients consistently rate us among the top advisors for business sales and acquisitions.</p>
+            </div>
+            <div class="expertise-item" style="background:#fff; color:#111d2b; border-left:2px solid #111d2b; padding:48px 36px; min-width:260px; max-width:340px; box-sizing:border-box; text-align:center;">
+                <div class="countup" data-count="500" data-prefix="$" data-suffix="M+" style="font-size:3em; font-weight:700; color:#111d2b; margin-bottom:12px;">$0M+</div>
+                <div style="font-size:1.2em; color:#111d2b; font-weight:600; margin-bottom:8px;">Total Deal Value</div>
+                <p style="margin:0; color:#111d2b;">We have successfully closed over half a billion dollars in business transactions for our clients.</p>
+            </div>
+            <div class="expertise-item" style="background:#fff; color:#111d2b; border-left:2px solid #111d2b; padding:48px 36px; min-width:260px; max-width:340px; box-sizing:border-box; text-align:center;">
+                <div class="countup" data-count="24" data-suffix="/7" style="font-size:3em; font-weight:700; color:#111d2b; margin-bottom:12px;">0/7</div>
+                <div style="font-size:1.2em; color:#111d2b; font-weight:600; margin-bottom:8px;">Expert Support</div>
+                <p style="margin:0; color:#111d2b;">Our team is available around the clock to guide you through every step of your business journey.</p>
+            </div>
+        </div>
+    </section>
+    <section id="negotiate" style="background:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; padding:0; margin-top:-350px;">
+        <div style="display:flex; align-items:center; justify-content:center; width:100%; max-width:1200px; position:relative; min-height:500px;">
+            <!-- Solid dark blue box, not opaque -->
+            <div style="
+                position:absolute;
+                left:-60vw;
+                top:50%;
+                transform:translateY(-50%);
+                width:calc(60vw + 420px);
+                height:420px;
+                background:#111d2b;
+                border-radius:0px;
+                z-index:1;
+                box-shadow:0 8px 32px rgba(17,29,43,0.18);
+            "></div>
+            <!-- Floating images -->
+            <div style="position:relative; z-index:2; width:420px; height:420px;">
+                <img src="./PT/shake.jpg" alt="Negotiation 1" style="
+                    position:absolute;
+                    top: -100px;
+                    right:0;
+                    width:400px;
+                    height:400px;
+                    object-fit:cover;
+                    border-radius:0px;
+                    box-shadow:0 4px 24px rgba(0,0,0,0.10);
+                    opacity:0.98;
+                    border:6px solid #fff;
+                ">
+                <img src="./PT/sign.jpg" alt="Negotiation 2" style="
+                    position:absolute;
+                    bottom:-280px;
+                    left:-160px;
+                    width:400px;
+                    height:400px;
+                    object-fit:cover;
+                    border-radius:0px;
+                    box-shadow:0 4px 24px rgba(0,0,0,0.10);
+                    opacity:0.98;
+                    border:6px solid #fff;
+                ">
+            </div>
+            <!-- Section content -->
+            <div style="margin-left:60px; max-width:480px; z-index:2;">
+                <h2 style="font-family:'Playfair Display',serif; font-size:3em; color:#111d2b; margin-bottom:24px; margin-top:300px;">
+                    Negotiate
+                </h2>
+                <p style="font-size:1.25em; color:#111d2b; line-height:1.6;">
+                    Negotiation is where vision meets reality—and where our expertise creates lasting impact. At this critical stage, we work closely with founders, executives, and investors to structure deals that are not only financially sound but also strategically aligned with long-term goals. Whether we’re negotiating valuation, equity ownership, governance terms, liquidation preferences, or investor rights, our team brings a calm, analytical approach grounded in years of venture experience.
+
+We understand that every deal is more than just numbers—it's about relationships, future milestones, and shared outcomes. That’s why we advocate for terms that balance ambition with pragmatism, fostering alignment between parties and laying the foundation for sustainable success. Through thoughtful negotiation, we help our clients close with confidence, clarity, and a partner they can trust at the table.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- New white section below Negotiate -->
+    <section id="does-this-sound-like-you" style="background:#fff; min-height:60vh; width:100%; display:flex; align-items:center; justify-content:center; padding:80px 0;">
+        <div style="max-width:1200px; width:100%; text-align:center; position:relative; display:flex; flex-direction:column; align-items:center;">
+            <h2 style="color:#111d2b; font-family:'Playfair Display',serif; font-size:2.8em; margin-bottom:24px;">
+                Does this sound like you?
+            </h2>
+            <div style="display:flex; flex-direction:column; align-items:stretch; justify-content:center; width:100%; max-width:800px; gap:32px;">
+                <div style="border-right:4px solid #111d2b; padding-right:24px; text-align:left; background:none; box-shadow:none;">
+                    <p style="color:#111d2b; font-size:1.3em; line-height:1.7; margin-bottom:24px;">
+                        You’ve built a successful business through hard work, grit, and smart decisions—but now you’re wondering what’s next. Maybe you're thinking about retirement, exploring new ventures, or simply looking to take some chips off the table.
+                    </p>
+                </div>
+                <div style="border-right:4px solid #111d2b; padding-right:24px; text-align:left; background:none; box-shadow:none;">
+                    <p style="color:#111d2b; font-size:1.3em; line-height:1.7; margin-bottom:24px;">
+                        You want to unlock the value you've created without compromising your legacy, your team, or your company’s future. If you're asking questions like “Is it the right time to sell?” or “How do I even start the process?”, you're not alone—and you're exactly who we’re here to help.
+                    </p>
+                </div>
+                <div style="border-right:4px solid #111d2b; padding-right:24px; text-align:left; background:none; box-shadow:none;">
+                    <p style="color:#111d2b; font-size:1.3em; line-height:1.7; margin-bottom:24px;">
+                        Or maybe you’re seeking a partner to help you grow, scale, or transition your business to the next generation. Whatever your goals, Saunders & Associates is ready to guide you with experience, empathy, and a proven process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-blue">
+        All rights reserved to Saunders 2025-2028
+    </footer>
+    <script>
+        // Header transparency and color on scroll
+        const header = document.getElementById('mainHeader');
+        function onScroll() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+
+        // Countup animation for numbers in .countup elements
+        function animateCountUp(el, target, prefix = '', suffix = '', duration = 1200) {
+            let start = 0;
+            let startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = Math.min((timestamp - startTime) / duration, 1);
+                let value = Math.floor(progress * (target - start) + start);
+                el.textContent = prefix + value + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = prefix + target + suffix;
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        function triggerCountUps() {
+            document.querySelectorAll('.countup').forEach(el => {
+                if (el.dataset.animated) return;
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.dataset.animated = "true";
+                    const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+                    const prefix = el.getAttribute('data-prefix') || '';
+                    const suffix = el.getAttribute('data-suffix') || '';
+                    animateCountUp(el, target, prefix, suffix);
+                }
+            });
+        }
+        window.addEventListener('scroll', triggerCountUps);
+        window.addEventListener('DOMContentLoaded', triggerCountUps);
+    </script>
+</body>
+</html>

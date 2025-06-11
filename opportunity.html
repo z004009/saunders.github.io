@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities | Saunders & Associates</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 50vh;
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            color: #fff;
+            padding-top: 72px;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            background: #111d2b;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            box-shadow: none;
+        }
+        header.scrolled {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            padding: 0 3vw 0 0;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-right: auto;
+            margin-left: 3vw;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding-top: 18px;
+            padding-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .nav-bar a,
+        .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s, padding-top 0.2s, padding-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        header.scrolled .logo {
+            color: #111d2b;
+        }
+        header.scrolled .nav-bar a,
+        header.scrolled .dropdown-btn {
+            color: #111d2b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.3s, border-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+        }
+        .dropdown-btn:hover,
+        .nav-bar a:hover {
+            background: none !important;
+            box-shadow: none !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            border-radius: 0px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; /* Make dropdown closer to button */
+            background: #fff !important;
+            min-width: 140px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            border-radius: 0px;
+            z-index: 200;
+        }
+        .dropdown-content a {
+            color: #111d2b !important;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1em;
+            border-radius: 0px;
+            background: #fff !important;
+            transition: color 0.3s, background 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: none !important;
+            color: #111d2b !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #111d2b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .fullview-blue {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+        }
+        .fullview-white {
+            min-height: 100vh;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 64px;
+        }
+        .explore-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .explore-tile {
+            width: 300px;
+            height: 640px;
+            background: #f3f4f6;
+            border-radius: 0px;
+            box-shadow: 0 2px 12px rgba(17,29,43,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative; /* Needed for absolute positioning inside */
+            transition: box-shadow 0.2s;
+        }
+        .explore-tile:hover {
+            box-shadow: 0 8px 32px rgba(17,29,43,0.16);
+        }
+        .explore-tile-img {
+            height: 60%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        .explore-tile-desc {
+            height: 40%;
+            background: #fff;
+            padding: 12px 16px 48px 16px; /* Extra bottom padding for button space */
+            font-size: 80%; /* Set font size to 80% */
+            color: #111d2b;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex: 1 1 auto;
+            position: relative;
+        }
+        .show-interest-btn {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            margin: 0;
+            padding: 10px 0;
+            background: #111d2b;
+            color: #fff;
+            border: none;
+            border-radius: 0px;
+            font-size: 1em;
+            cursor: pointer;
+            width: auto;
+        }
+        .explore-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .explore-page-btn {
+            background: #f3f4f6;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 1.1em;
+            color: #111d2b;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .explore-page-btn.active,
+        .explore-page-btn:hover {
+            background: #111d2b;
+            color: #fff;
+        }
+        .footer-blue {
+            width: 100%;
+            background: #111d2b;
+            color: #fff;
+            text-align: center;
+            padding: 22px 0 20px 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            font-family: 'Open Sans', sans-serif;
+            margin-top: 0;
+        }
+        .interest-modal-bg {
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: rgba(17,29,43,0.32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .interest-modal-window {
+            background: #fff;
+            color: #111d2b;
+            border-radius: 0px;
+            max-width: 380px;
+            width: 92vw;
+            padding: 32px 24px 24px 24px;
+            box-shadow: 0 8px 32px rgba(17,29,43,0.18);
+            position: relative;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 80%; /* Set font size for the whole modal */
+        }
+        .interest-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #111d2b;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .interest-form label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+        .interest-form input,
+        .interest-form textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 4px;
+            margin-bottom: 0;
+            border: 1px solid #d1d5db;
+            border-radius: 0px; /* No border radius */
+            font-size: 1em;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .interest-form textarea {
+            resize: vertical;
+        }
+        .interest-submit-btn {
+            background: #111d2b;
+            color: #fff;
+            border: none;
+            border-radius: 0px; /* No border radius */
+            padding: 10px 22px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 8px;
+            width: 100%;
+        }
+        .interest-submit-btn:hover {
+            background: #1e293b;
+        }
+        /* Responsive styles */
+        @media (max-width: 1100px) {
+            .explore-tiles-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+        @media (max-width: 900px) {
+            .explore-tiles-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .explore-tile {
+                width: 94vw;
+                max-width: 340px;
+                margin: 0 auto;
+                height: 640px;
+            }
+            .fullview-blue h1 {
+                font-size: 2.2em !important;
+            }
+        }
+        @media (max-width: 700px) {
+            .logo { font-size: 1.2em; }
+            .nav-bar { gap: 10px; padding-right: 1vw; }
+            body {
+                padding-top: 56px;
+            }
+            header {
+                height: 56px;
+            }
+            .fullview-blue {
+                padding-top: 80px !important;
+                min-height: 80vh !important;
+            }
+            .fullview-blue h1 {
+                font-size: 1.5em !important;
+            }
+            .fullview-blue p {
+                font-size: 1em !important;
+            }
+            .down-arrow {
+                margin-top: 32px !important;
+            }
+            .footer-blue { font-size: 0.95em !important; padding: 14px 0 12px 0 !important; }
+        }
+        @media (max-width: 500px) {
+            .fullview-blue h1 { font-size: 1.1em !important; }
+            .fullview-blue p { font-size: 0.95em !important; }
+            .footer-blue { font-size: 0.9em !important; padding: 10px 0 8px 0 !important; }
+            .interest-modal-window { padding: 12px 4vw 12px 4vw !important; }
+        }
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 0 1vw 0 0;
+            }
+            .nav-bar a, .dropdown-btn {
+                font-size: 0.95em;
+                padding: 4px 8px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+        }
+        img, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        section, div, h1, h2, h3, p {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <nav class="nav-bar">
+            <span class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Saunders</span>
+            <div class="dropdown">
+                <button class="dropdown-btn">Services</button>
+                <div class="dropdown-content">
+                    <a href="contact.html">Sell Your Business</a>
+                    <a href="contact.html">Value your Business</a>
+                    <a href="opportunity.html">Buy a Business</a>
+                </div>
+            </div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+    <section class="fullview-blue">
+        <h1 style="color:#fff; font-family:'Playfair Display',serif; font-size:4em; font-weight:700; margin:0; letter-spacing:2px; text-align:center;">
+            Explore Available Businesses
+        </h1>
+        <p style="color:#fff; font-size:1.5em; max-width:700px; text-align:center;">
+            Discover a range of businesses available for acquisition. 
+            <br>Our listings include detailed information to help you make informed decisions.
+        </p>
+        <a href="#explore" class="down-arrow" style="margin-top:48px; display:flex; justify-content:center; align-items:center; cursor:pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <path d="M10 16l10 10 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </section>
+    <section id="explore" class="fullview-white">
+        <!-- Tiles Grid -->
+        <div class="explore-tiles-grid" id="exploreTilesGrid">
+            <!-- Example tiles, add more as needed, ensure data-industry and data-price are set -->
+            <div class="explore-tile" data-industry="tech" data-price="350000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b7.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Acme Tech Solutions</div>
+                    <div>Asking Price: <b>$350,000</b></div>
+                    <div>Revenue: <b>$900,000</b></div>
+                    <div>Gross Profit: <b>$320,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Leading provider of custom software for small businesses. Strong recurring client base and scalable SaaS model.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Francisco, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Acme Tech Solutions">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="retail" data-price="120000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b3.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">GreenLeaf Retail</div>
+                    <div>Asking Price: <b>$120,000</b></div>
+                    <div>Revenue: <b>$300,000</b></div>
+                    <div>Gross Profit: <b>$110,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Popular eco-friendly retail shop in a high-traffic area. Loyal customer base and strong local brand.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Los Angeles, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="GreenLeaf Retail">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="manufacturing" data-price="800000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b12.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Sunrise Manufacturing</div>
+                    <div>Asking Price: <b>$800,000</b></div>
+                    <div>Revenue: <b>$2,100,000</b></div>
+                    <div>Gross Profit: <b>$700,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Well-established manufacturer with modern equipment and long-term contracts in place.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Chicago, IL
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Sunrise Manufacturing">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="services" data-price="250000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b1.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">QuickFix Services</div>
+                    <div>Asking Price: <b>$250,000</b></div>
+                    <div>Revenue: <b>$600,000</b></div>
+                    <div>Gross Profit: <b>$210,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Fast-growing home repair business with excellent online reviews and repeat clients.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Houston, TX
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="QuickFix Services">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="logistics" data-price="1200000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b10.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Metro Logistics</div>
+                    <div>Asking Price: <b>$1,200,000</b></div>
+                    <div>Revenue: <b>$3,500,000</b></div>
+                    <div>Gross Profit: <b>$1,100,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Leading logistics company specializing in time-sensitive deliveries. Extensive network and advanced tracking systems.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Seattle, WA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Metro Logistics">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="food" data-price="95000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b14.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">FreshStart Foods</div>
+                    <div>Asking Price: <b>$95,000</b></div>
+                    <div>Revenue: <b>$210,000</b></div>
+                    <div>Gross Profit: <b>$70,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Organic food store with a strong community presence and a loyal customer base.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Portland, OR
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="FreshStart Foods">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="fitness" data-price="400000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b2.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">BlueSky Consulting</div>
+                    <div>Asking Price: <b>$400,000</b></div>
+                    <div>Revenue: <b>$1,000,000</b></div>
+                    <div>Gross Profit: <b>$350,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        IT consulting firm with a diverse portfolio of clients and a strong reputation for quality.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Austin, TX
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="BlueSky Consulting">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="services" data-price="650000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b9.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Urban Fitness</div>
+                    <div>Asking Price: <b>$650,000</b></div>
+                    <div>Revenue: <b>$1,800,000</b></div>
+                    <div>Gross Profit: <b>$600,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Popular gym and fitness center with a loyal membership base and strong community engagement.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Miami, FL
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Urban Fitness">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="education" data-price="220000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b5.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Bright Minds Academy</div>
+                    <div>Asking Price: <b>$220,000</b></div>
+                    <div>Revenue: <b>$500,000</b></div>
+                    <div>Gross Profit: <b>$180,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Well-regarded tutoring center with a proven track record of student success and satisfaction.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Diego, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Bright Minds Academy">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="services" data-price="500000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b13.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Peak Performance</div>
+                    <div>Asking Price: <b>$500,000</b></div>
+                    <div>Revenue: <b>$1,200,000</b></div>
+                    <div>Gross Profit: <b>$400,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        High-end sports training facility with elite clientele and top-tier coaching staff.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Las Vegas, NV
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Peak Performance">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="services" data-price="320000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b8.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">EcoClean Services</div>
+                    <div>Asking Price: <b>$320,000</b></div>
+                    <div>Revenue: <b>$700,000</b></div>
+                    <div>Gross Profit: <b>$250,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Environmentally friendly cleaning service with a strong reputation and a growing client base.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Denver, CO
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="EcoClean Services">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile" data-industry="education" data-price="150000">
+                <div class="explore-tile-img" style="background-image:url('./PT/b4.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Bright Path Tutors</div>
+                    <div>Asking Price: <b>$150,000</b></div>
+                    <div>Revenue: <b>$400,000</b></div>
+                    <div>Gross Profit: <b>$140,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Personalized tutoring services with a focus on academic excellence and student growth.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Boston, MA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Bright Path Tutors">Show Interest</button>
+                </div>
+            </div>
+            <!-- Page 2 -->
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('./PT/b11.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">NextGen Labs</div>
+                    <div>Asking Price: <b>$900,000</b></div>
+                    <div>Revenue: <b>$2,400,000</b></div>
+                    <div>Gross Profit: <b>$850,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Innovative biotech firm with patented technology and strong pipeline of products.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Diego, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="NextGen Labs">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('./PT/b6.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Family Care Clinic</div>
+                    <div>Asking Price: <b>$275,000</b></div>
+                    <div>Revenue: <b>$650,000</b></div>
+                    <div>Gross Profit: <b>$230,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Community-focused medical clinic with a loyal patient base and strong local reputation.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Dallas, TX
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Family Care Clinic">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('./PT/b15.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Global Freight</div>
+                    <div>Asking Price: <b>$1,500,000</b></div>
+                    <div>Revenue: <b>$4,000,000</b></div>
+                    <div>Gross Profit: <b>$1,200,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        International freight forwarding company with a strong global network and excellent service record.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Seattle, WA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Global Freight">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('./PT/b16.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Pet Paradise</div>
+                    <div>Asking Price: <b>$180,000</b></div>
+                    <div>Revenue: <b>$420,000</b></div>
+                    <div>Gross Profit: <b>$150,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Upscale pet grooming and boarding facility with a loyal clientele and premium services.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Miami, FL
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Pet Paradise">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b17.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Urban Eats</div>
+                    <div>Asking Price: <b>$700,000</b></div>
+                    <div>Revenue: <b>$1,900,000</b></div>
+                    <div>Gross Profit: <b>$650,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Trendy restaurant with a loyal following and a prime location in the city.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> New York, NY
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Urban Eats">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b18.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Smart Solutions</div>
+                    <div>Asking Price: <b>$210,000</b></div>
+                    <div>Revenue: <b>$520,000</b></div>
+                    <div>Gross Profit: <b>$180,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        IT support and solutions provider with a strong focus on customer service and satisfaction.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Austin, TX
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Smart Solutions">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b19.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Prime Distribution</div>
+                    <div>Asking Price: <b>$1,100,000</b></div>
+                    <div>Revenue: <b>$2,900,000</b></div>
+                    <div>Gross Profit: <b>$1,000,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Leading distributor with a vast network and a reputation for reliability and efficiency.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Chicago, IL
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Prime Distribution">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b20.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Bright Future Schools</div>
+                    <div>Asking Price: <b>$320,000</b></div>
+                    <div>Revenue: <b>$800,000</b></div>
+                    <div>Gross Profit: <b>$280,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Established tutoring and test prep center with a strong track record of student success.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Jose, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Bright Future Schools">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b21.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">CleanTech Pros</div>
+                    <div>Asking Price: <b>$600,000</b></div>
+                    <div>Revenue: <b>$1,600,000</b></div>
+                    <div>Gross Profit: <b>$550,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Innovative cleaning products manufacturer with a strong commitment to sustainability.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Boston, MA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="CleanTech Pros">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b22.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Garden Supply Co.</div>
+                    <div>Asking Price: <b>$450,000</b></div>
+                    <div>Revenue: <b>$1,100,000</b></div>
+                    <div>Gross Profit: <b>$370,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Retailer of gardening supplies with a loyal customer base and strong online sales.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Portland, OR
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Garden Supply Co.">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b23.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">AutoCare Center</div>
+                    <div>Asking Price: <b>$280,000</b></div>
+                    <div>Revenue: <b>$650,000</b></div>
+                    <div>Gross Profit: <b>$230,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Full-service auto repair shop with a strong reputation and a loyal customer base.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Antonio, TX
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="AutoCare Center">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-2" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b24.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Elite Fitness</div>
+                    <div>Asking Price: <b>$990,000</b></div>
+                    <div>Revenue: <b>$2,300,000</b></div>
+                    <div>Gross Profit: <b>$800,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Premier fitness center with state-of-the-art equipment and a wide range of classes.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Los Angeles, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Elite Fitness">Show Interest</button>
+                </div>
+            </div>
+            <!-- Page 3 -->
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b25.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Visionary Media</div>
+                    <div>Asking Price: <b>$1,300,000</b></div>
+                    <div>Revenue: <b>$3,200,000</b></div>
+                    <div>Gross Profit: <b>$1,100,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Cutting-edge media production company specializing in digital content and branding.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Francisco, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Visionary Media">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b26.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">HomeStyle Decor</div>
+                    <div>Asking Price: <b>$350,000</b></div>
+                    <div>Revenue: <b>$900,000</b></div>
+                    <div>Gross Profit: <b>$320,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Retailer of custom home decor with a strong online presence and loyal customer base.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Los Angeles, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="HomeStyle Decor">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b27.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Smart Tutors</div>
+                    <div>Asking Price: <b>$210,000</b></div>
+                    <div>Revenue: <b>$500,000</b></div>
+                    <div>Gross Profit: <b>$180,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Innovative tutoring service utilizing technology to enhance student learning and engagement.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Boston, MA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Smart Tutors">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b28.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Global Markets</div>
+                    <div>Asking Price: <b>$1,000,000</b></div>
+                    <div>Revenue: <b>$2,700,000</b></div>
+                    <div>Gross Profit: <b>$900,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        International trading company with a diverse range of products and a strong global network.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> New York, NY
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Global Markets">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b29.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Bright Smiles Dental</div>
+                    <div>Asking Price: <b>$480,000</b></div>
+                    <div>Revenue: <b>$1,100,000</b></div>
+                    <div>Gross Profit: <b>$400,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Dental practice with a loyal patient base, offering a wide range of dental services.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Diego, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Bright Smiles Dental">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b30.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Urban Bistro</div>
+                    <div>Asking Price: <b>$320,000</b></div>
+                    <div>Revenue: <b>$800,000</b></div>
+                    <div>Gross Profit: <b>$280,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Cozy bistro with a strong local following, known for its quality food and ambiance.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Seattle, WA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Urban Bistro">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b31.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">NextGen Tech</div>
+                    <div>Asking Price: <b>$1,700,000</b></div>
+                    <div>Revenue: <b>$4,500,000</b></div>
+                    <div>Gross Profit: <b>$1,500,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Technology company specializing in AI solutions with a strong patent portfolio and R&D pipeline.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Francisco, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="NextGen Tech">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b32.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Green Energy Co.</div>
+                    <div>Asking Price: <b>$250,000</b></div>
+                    <div>Revenue: <b>$600,000</b></div>
+                    <div>Gross Profit: <b>$210,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Renewable energy company with a focus on solar and wind projects. Strong growth potential.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Denver, CO
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Green Energy Co.">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b33.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Prime Distribution</div>
+                    <div>Asking Price: <b>$1,100,000</b></div>
+                    <div>Revenue: <b>$2,900,000</b></div>
+                    <div>Gross Profit: <b>$1,000,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Leading distributor with a vast network and a reputation for reliability and efficiency.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Chicago, IL
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Prime Distribution">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b34.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Bright Future Schools</div>
+                    <div>Asking Price: <b>$320,000</b></div>
+                    <div>Revenue: <b>$800,000</b></div>
+                    <div>Gross Profit: <b>$280,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Established tutoring and test prep center with a strong track record of student success.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> San Jose, CA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Bright Future Schools">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b35.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">CleanTech Pros</div>
+                    <div>Asking Price: <b>$600,000</b></div>
+                    <div>Revenue: <b>$1,600,000</b></div>
+                    <div>Gross Profit: <b>$550,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Innovative cleaning products manufacturer with a strong commitment to sustainability.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Boston, MA
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="CleanTech Pros">Show Interest</button>
+                </div>
+            </div>
+            <div class="explore-tile page-3" style="display:none;">
+                <div class="explore-tile-img" style="background-image:url('b36.jpg');"></div>
+                <div class="explore-tile-desc">
+                    <div style="font-weight:600; margin-bottom:6px;">Garden Supply Co.</div>
+                    <div>Asking Price: <b>$450,000</b></div>
+                    <div>Revenue: <b>$1,100,000</b></div>
+                    <div>Gross Profit: <b>$370,000</b></div>
+                    <div style="font-size:0.98em; margin-top:6px;">
+                        Retailer of gardening supplies with a loyal customer base and strong online sales.
+                    </div>
+                    <div style="margin-top:6px; font-size:0.97em; color:#444;">
+                        <b>Location:</b> Portland, OR
+                    </div>
+                    <button class="show-interest-btn" type="button" data-company="Garden Supply Co.">Show Interest</button>
+                </div>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="explore-pagination" style="margin:40px 0 0 0;">
+            <button class="explore-page-btn active" data-page="1">1</button>
+            <button class="explore-page-btn" data-page="2">2</button>
+            <button class="explore-page-btn" data-page="3">3</button>
+        </div>
+        <div style="height:60px;"></div>
+    </section>
+    <footer class="footer-blue">
+        All rights reserved to Saunders 2025-2028
+    </footer>
+    <!-- Interest Modal -->
+    <div id="interestModal" class="interest-modal-bg" style="display:none;">
+        <div class="interest-modal-window">
+            <button class="interest-modal-close" onclick="closeInterestModal()" aria-label="Close">&times;</button>
+            <h2 style="margin-top:0; font-family:'Playfair Display',serif;">Show Interest</h2>
+            <form class="interest-form" id="interestForm" action="https://formspree.io/f/manjnboy" method="POST">
+                <label>
+                    Company<br>
+                    <input type="text" name="company" id="interestCompany" readonly style="background:#f3f4f6;">
+                </label>
+                <label>
+                    Name<br>
+                    <input type="text" name="name" required>
+                </label>
+                <label>
+                    Phone Number<br>
+                    <input type="tel" name="phone" required>
+                </label>
+                <label>
+                    Email<br>
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    Message<br>
+                    <textarea name="message" rows="3" required>I am interested in this business. Please contact me with more information.</textarea>
+                </label>
+                <div style="font-size:0.98em; color:#444; margin-bottom:12px;">
+                    You will receive a message from us soon.
+                </div>
+                <button type="submit" class="interest-submit-btn">Send</button>
+            </form>
+            <div id="interestThanks" style="display:none; text-align:center; margin-top:24px;">
+                <b>Thank you! We will contact you soon.</b>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('mainHeader');
+        function onScroll() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+
+        // Pagination and Tiles
+        const allTiles = Array.from(document.querySelectorAll('.explore-tile'));
+        const pageBtns = Array.from(document.querySelectorAll('.explore-page-btn'));
+        const tilesPerPage = 12; // 3x4 grid
+
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                pageBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderTiles();
+
+                // Scroll to the top of the explore section smoothly
+                const exploreSection = document.getElementById('explore');
+                if (exploreSection) {
+                    exploreSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                // Remove .visible from tiles so they fade up again
+                setTimeout(() => {
+                    document.querySelectorAll('.explore-tile.fade-up').forEach(tile => {
+                        tile.classList.remove('visible');
+                    });
+                    // Trigger fade-up after a short delay for effect
+                    setTimeout(() => {
+                        fadeUpOnScroll();
+                    }, 100);
+                }, 100);
+            });
+        });
+
+        function getCurrentPage() {
+            const active = pageBtns.find(btn => btn.classList.contains('active'));
+            return active ? Number(active.dataset.page) : 1;
+        }
+
+        function renderTiles() {
+            const currentPage = getCurrentPage();
+
+            // No filtering, just paginate all tiles
+            allTiles.forEach(tile => tile.style.display = 'none');
+            const start = (currentPage - 1) * tilesPerPage;
+            const end = start + tilesPerPage;
+            allTiles.slice(start, end).forEach(tile => tile.style.display = '');
+
+            // Hide page buttons if no results for that page
+            pageBtns.forEach((btn, idx) => {
+                const pageStart = idx * tilesPerPage;
+                btn.style.display = allTiles.length > pageStart ? '' : 'none';
+            });
+        }
+
+        // Initial render
+        renderTiles();
+
+        // Show Interest Modal
+        document.querySelectorAll('.show-interest-btn').forEach(btn => {
+            btn.onclick = function() {
+                document.getElementById('interestModal').style.display = 'flex';
+                document.getElementById('interestThanks').style.display = 'none';
+                document.getElementById('interestForm').style.display = '';
+                document.getElementById('interestCompany').value = btn.getAttribute('data-company');
+            };
+        });
+        function closeInterestModal() {
+            document.getElementById('interestModal').style.display = 'none';
+        }
+        // AJAX submit to Formspree
+        document.getElementById('interestForm').onsubmit = function(e) {
+            e.preventDefault();
+            var form = this;
+            var data = new FormData(form);
+            fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                form.style.display = 'none';
+                document.getElementById('interestThanks').style.display = 'block';
+                setTimeout(closeInterestModal, 2200);
+                form.reset();
+            }).catch(error => {
+                alert("There was a problem submitting your request. Please try again.");
+            });
+        };
+        // Close modal on background click
+        document.getElementById('interestModal').addEventListener('click', function(e) {
+            if (e.target === this) closeInterestModal();
+        });
+        // ESC key closes modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") closeInterestModal();
+        });
+
+        // Phone number formatting for US numbers: (123) 456-7890
+        function formatPhoneNumber(value) {
+            // Remove all non-digit characters
+            const digits = value.replace(/\D/g, '');
+            const len = digits.length;
+            if (len === 0) return '';
+            if (len < 4) return '(' + digits;
+            if (len < 7) return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+            return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6,10);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.querySelector('#interestForm input[name="phone"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    const formatted = formatPhoneNumber(this.value);
+                    this.value = formatted;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

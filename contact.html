@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saunders & Associates | Contact</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            color: #fff;
+            padding-top: 72px;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            background: rgba(255,255,255,0.0);
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            box-shadow: none;
+        }
+        header.scrolled {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            padding: 0 3vw 0 0;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-right: auto;
+            margin-left: 3vw;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding-top: 18px;
+            padding-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .nav-bar a,
+        .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s, padding-top 0.2s, padding-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        header.scrolled .logo {
+            color: #111d2b;
+        }
+        header.scrolled .nav-bar a,
+        header.scrolled .dropdown-btn {
+            color: #111d2b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.3s, border-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+        }
+        header.scrolled .dropdown-btn,
+        header.scrolled .nav-bar a {
+            color: #111d2b;
+        }
+        .dropdown-btn:hover,
+        .nav-bar a:hover {
+            background: none !important;
+            box-shadow: none !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            border-radius: 0px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; /* Make dropdown closer to button */
+            background: #fff !important;
+            min-width: 140px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            border-radius: 0px;
+            z-index: 200;
+        }
+        .dropdown-content a {
+            color: #111d2b !important;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1em;
+            border-radius: 0px;
+            background: #fff !important;
+            transition: color 0.3s, background 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: none !important;
+            color: #111d2b !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #111d2b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s;
+        }
+        .fullview-blue {
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .fullview-blue h1 {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .fullview-blue p {
+            color: #fff;
+            font-size: 1.5em;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            margin-top: 32px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        .contact-section {
+            background: #fff;
+            color: #111d2b;
+            min-height: 60vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0;
+        }
+        .contact-section h2 {
+            color: #111d2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .contact-section form {
+            max-width: 420px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .contact-section input,
+        .contact-section textarea,
+        .contact-section select {
+            padding: 12px 14px;
+            border: 1px solid #bbb;
+            border-radius: 0px;
+            font-size: 1em;
+            font-family: 'Open Sans', sans-serif;
+            resize: vertical;
+            font-weight: 400;
+        }
+        .contact-section button {
+            background: #111d2b;
+            color: #fff;
+            border: none;
+            padding: 14px 0;
+            font-size: 1.1em;
+            font-family: 'Open Sans', sans-serif;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: 600;
+        }
+        .contact-section button:hover {
+            background: #1e293b;
+        }
+        .contact-section input,
+        .contact-section textarea,
+        .contact-section select {
+            font-weight: 100 !important;
+            font-size: 80% !important;
+            padding: 16px !important;
+        }
+        .contact-section input,
+        .contact-section textarea,
+        .contact-section select {
+            font-weight: 100 !important;
+            font-size: 80% !important;
+            padding: 16px !important;
+            border: 1px solid #bbb;
+            border-radius: 0px;
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 0;
+            box-sizing: border-box;
+        }
+        .contact-section fieldset {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        .contact-section legend {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #111d2b;
+            margin-bottom: 12px;
+            padding: 0;
+        }
+        /* Fade-up animation styles */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 2s cubic-bezier(.4,0,.2,1);
+            will-change: opacity, transform;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Responsive styles */
+        @media (max-width: 1100px) {
+            .contact-section {
+                padding: 40px 0;
+            }
+        }
+        @media (max-width: 900px) {
+            .fullview-blue h1 { font-size: 2.2em !important; }
+            .fullview-blue p { font-size: 1.1em !important; }
+            .contact-section h2 { font-size: 1.5em !important; }
+            .contact-section form { max-width: 98vw !important; }
+        }
+        @media (max-width: 700px) {
+            .logo { font-size: 1.2em; }
+            .nav-bar { gap: 10px; padding-right: 1vw; }
+            body {
+                padding-top: 56px;
+            }
+            header {
+                height: 56px;
+            }
+            .fullview-blue {
+                padding-top: 80px !important;
+                min-height: 80vh !important;
+            }
+            .fullview-blue h1 {
+                font-size: 1.5em !important;
+            }
+            .fullview-blue p {
+                font-size: 1em !important;
+            }
+            .down-arrow {
+                margin-top: 32px !important;
+            }
+            .contact-section {
+                padding: 24px 0 !important;
+            }
+            .contact-section h2 {
+                font-size: 1.1em !important;
+                margin-bottom: 12px !important;
+            }
+            .contact-section form {
+                max-width: 99vw !important;
+                padding: 0 2vw !important;
+            }
+            .contact-section input,
+            .contact-section textarea,
+            .contact-section select {
+                font-size: 90% !important;
+                padding: 10px !important;
+            }
+        }
+        @media (max-width: 500px) {
+            .fullview-blue h1 { font-size: 1.1em !important; }
+            .fullview-blue p { font-size: 0.95em !important; }
+            .contact-section h2 { font-size: 1em !important; }
+            .contact-section form { padding: 0 1vw !important; }
+            .contact-section input,
+            .contact-section textarea,
+            .contact-section select {
+                font-size: 90% !important;
+                padding: 8px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 0 1vw 0 0;
+            }
+            .nav-bar a, .dropdown-btn {
+                font-size: 0.95em;
+                padding: 4px 8px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+        }
+        img, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        section, div, h1, h2, h3, p {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <nav class="nav-bar">
+            <span class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Saunders</span>
+            <div class="dropdown">
+                <button class="dropdown-btn">Services</button>
+                <div class="dropdown-content">
+                    <a href="contact.html">Sell Your Business</a>
+                    <a href="contact.html">Value your Business</a>
+                    <a href="opportunity.html">Buy a Business</a>
+                </div>
+            </div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+    <section class="fullview-blue">
+        <h1 class="fade-up">Ready to make the next step?</h1>
+        <p class="fade-up">Let’s start a conversation about your goals.<br>We’re here to help you move forward with clarity and confidence.</p>
+        <a href="#contact-form" class="down-arrow fade-up" style="margin-top:48px; display:flex; justify-content:center; align-items:center; cursor:pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <path d="M10 16l10 10 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </section>
+    <section class="contact-section" id="contact-form">
+        <div>
+            <h2>Contact Saunders' Associates</h2>
+            <form id="contactForm">
+                <!-- Personal Information -->
+                <fieldset style="border:none; padding:0; margin-bottom:24px;">
+                    <legend style="font-size:1.1em; font-weight:600; color:#111d2b; margin-bottom:12px; padding:0;">Personal Information</legend>
+                    <div style="display:flex; gap:16px; margin-bottom:12px;">
+                        <input type="text" name="first_name" placeholder="First Name" required style="flex:1;">
+                        <input type="text" name="last_name" placeholder="Last Name" required style="flex:1;">
+                    </div>
+                    <input type="tel" name="phone" id="phone" placeholder="Phone Number" required style="width:100%; margin-bottom:12px;">
+                    <input type="email" name="email" placeholder="Your Email" required style="width:100%;">
+                </fieldset>
+                <!-- Company Information -->
+                <fieldset style="border:none; padding:0; margin-bottom:24px;">
+                    <legend style="font-size:1.1em; font-weight:600; color:#111d2b; margin-bottom:12px; padding:0;">Company Information</legend>
+                    <input type="text" name="company" placeholder="Company Name" style="width:100%; margin-bottom:12px;">
+                    <input type="number" name="years" placeholder="Years in Business" min="0" style="width:100%; margin-bottom:12px;">
+                    <select name="industry" required style="width:100%; margin-bottom:12px;">
+                        <option value="" disabled selected>Industry</option>
+                        <option value="retail">Retail</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="technology">Technology</option>
+                        <option value="services">Services</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="construction">Construction</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" name="asking_price" placeholder="Asking Price" style="width:100%;">
+                </fieldset>
+                <!-- Interest and Message -->
+                <select name="interest" required>
+                    <option value="" disabled selected>Interested In</option>
+                    <option value="buying">Buying a Business</option>
+                    <option value="selling">Selling my Business</option>
+                    <option value="evaluating">Evaluating my business</option>
+                </select>
+                <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+                <button type="submit">Send Message</button>
+                <div id="form-success" style="display:none; color:green; margin-top:18px; font-size:1.1em; text-align:center;">
+                    Success! Your message has been sent.
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        // Header transparency and color on scroll (matches index.html)
+        const header = document.getElementById('mainHeader');
+        function onScroll() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+
+        // Fade-up animation for text (same as index.html)
+        function fadeUpOnScroll() {
+            document.querySelectorAll('.fade-up').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', fadeUpOnScroll);
+        window.addEventListener('DOMContentLoaded', fadeUpOnScroll);
+
+        // Phone number auto-format: (123) 456-7890
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').substring(0, 10);
+            let formatted = '';
+            if (x.length > 0) {
+                formatted = '(' + x.substring(0, 3);
+            }
+            if (x.length >= 4) {
+                formatted += ') ' + x.substring(3, 6);
+            }
+            if (x.length >= 7) {
+                formatted += '-' + x.substring(6, 10);
+            }
+            e.target.value = formatted;
+        });
+
+        // AJAX Formspree submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = e.target;
+            var data = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://formspree.io/f/manjnboy');
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        form.reset();
+                        document.getElementById('form-success').style.display = 'block';
+                    } else {
+                        alert('Oops! Something went wrong. Please try again later.');
+                    }
+                }
+            };
+            xhr.send(data);
+        });
+    </script>
+</body>
+</html>

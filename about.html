@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Saunders & Associates</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+            background: #fff;
+            color: #111d2b;
+            padding-top: 72px;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            background: #111d2b;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            box-shadow: none;
+        }
+        header.scrolled {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            padding: 0 3vw 0 0;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-right: auto;
+            margin-left: 3vw;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding-top: 18px;
+            padding-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            cursor: pointer;
+        }
+        .nav-bar a,
+        .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s, padding-top 0.2s, padding-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        header.scrolled .logo {
+            color: #111d2b;
+        }
+        header.scrolled .nav-bar a,
+        header.scrolled .dropdown-btn {
+            color: #111d2b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.3s, border-bottom 0.2s;
+            background: none;
+            box-shadow: none;
+        }
+        .dropdown-btn:hover,
+        .nav-bar a:hover {
+            background: none !important;
+            box-shadow: none !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            border-radius: 0px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; /* Changed from 110% to 100% for closer dropdown */
+            background: #fff !important;
+            min-width: 140px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            border-radius: 0px;
+            z-index: 200;
+        }
+        .dropdown-content a {
+            color: #111d2b !important;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1em;
+            border-radius: 0px;
+            background: #fff !important;
+            transition: color 0.3s, background 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: none !important;
+            color: #111d2b !important;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #111d2b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.3s;
+        }
+        /* Section styles */
+        .section {
+            background: #fff;
+            color: #111d2b;
+            min-height: 60vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0;
+        }
+        .section h2 {
+            color: #111d2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .section p {
+            padding-top: -30px;
+            color: #111d2b;
+            font-size: 1.3em;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto 0 auto;
+            text-align: center;
+        }
+        .team-section {
+            background: #fff;
+            color: #111d2b;
+            width: 100%;
+            padding: 80px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .team-blue-bg {
+            position: absolute;
+            left: -60vw;
+            top: 50%;
+            transform: translateY(-50%);
+            width: calc(60vw + 340px);
+            height: 960px;
+            background: #111d2b;
+            border-radius: 0px;
+            z-index: 1;
+            box-shadow: 0 8px 32px rgba(17,29,43,0.18);
+        }
+        .team-list {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            width: 100%;
+            max-width: 900px;
+        }
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            margin-bottom: 0;
+        }
+        .team-member-img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 0px;
+            margin-right: 24px;
+            flex-shrink: 0;
+            display: block;
+            background: transparent;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+        }
+        /* New styles for the fullview section */
+        .fullview-blue {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #111d2b 80%, #1e293b 100%);
+            padding: 0 3vw;
+            box-sizing: border-box;
+        }
+        .fullview-blue h1 {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .down-arrow {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .down-arrow svg {
+            width: 40px;
+            height: 40px;
+            fill: none;
+            aria-hidden: true;
+        }
+        .cascading-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 80px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            background: #fff;
+        }
+        .cascading-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: -30px;
+            background: #fff;
+        }
+        .cascading-row.reverse {
+            flex-direction: row-reverse;
+        }
+        .cascading-box.blue {
+            background: #111d2b;
+            color: #fff;
+            border-radius: 0px;
+            padding: 40px 36px;
+            min-width: 320px;
+            max-width: 420px;
+            flex: 1 1 0;
+            box-shadow: 0 4px 24px rgba(17,29,43,0.10);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+        .cascading-box.blue h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7em;
+            margin: 0 0 16px 0;
+            color: #fff;
+        }
+        .cascading-box.blue p {
+            font-size: 1.1em;
+            margin: 0;
+            color: #fff;
+        }
+        .cascading-img {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cascading-img img {
+            width: 320px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 0px;
+            box-shadow: 0 4px 24px rgba(17,29,43,0.10);
+            background: #e5e7eb;
+        }
+        .footer-blue {
+            width: 100%;
+            background: #111d2b;
+            color: #fff;
+            text-align: center;
+            padding: 22px 0 20px 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            font-family: 'Open Sans', sans-serif;
+            margin-top: 0;
+        }
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .fullview-blue h1 { font-size: 2.2em !important; }
+            .section h2 { font-size: 2em !important; }
+        }
+        @media (max-width: 1000px) {
+            .team-blue-bg {
+                width: 100vw;
+                left: 0;
+                height: 1100px;
+            }
+        }
+        @media (max-width: 900px) {
+            .cascading-section {
+                gap: 24px;
+            }
+            .cascading-row {
+                gap: 24px;
+            }
+            .cascading-img img,
+            .cascading-box.blue {
+                max-width: 100%;
+                width: 100%;
+            }
+            .section h2 { font-size: 1.7em !important; }
+        }
+        @media (max-width: 700px) {
+            .logo { font-size: 1.2em; }
+            .nav-bar { gap: 10px; padding-right: 1vw; }
+            body {
+                padding-top: 56px;
+            }
+            header {
+                font-size: large;
+                height: 56px;
+            }
+            .team-member {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            .team-member-img {
+                margin-bottom: 18px !important;
+                margin-right: 0 !important;
+                width: 180px !important;
+                height: 180px !important;
+            }
+            .team-member-desc {
+                text-align: center !important;
+            }
+            .team-blue-bg {
+                width: 100vw;
+                left: 0;
+                height: 1200px;
+            }
+            .cascading-row,
+            .cascading-row.reverse {
+                flex-direction: column !important;
+                gap: 18px;
+            }
+            .cascading-section {
+                gap: 24px;
+                margin-top: 40px;
+            }
+            .cascading-box.blue {
+                padding: 24px 12px;
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cascading-img img {
+                width: 90vw;
+                max-width: 340px;
+                height: 180px;
+            }
+            .section {
+                padding: 40px 0 !important;
+            }
+            .section h2 {
+                font-size: 1.2em !important;
+                margin-bottom: 18px !important;
+            }
+            .section p {
+                font-size: 1em !important;
+                padding: 0 2vw !important;
+            }
+            .fullview-blue h1 {
+                font-size: 1.5em !important;
+            }
+            .fullview-blue p {
+                font-size: 1em !important;
+            }
+            .down-arrow {
+                margin-top: 32px !important;
+            }
+            .footer-blue { font-size: 0.95em !important; padding: 14px 0 12px 0 !important; }
+        }
+        @media (max-width: 500px) {
+            .fullview-blue h1 { font-size: 1.1em !important; }
+            .fullview-blue p { font-size: 0.95em !important; }
+            .footer-blue { font-size: 0.9em !important; padding: 10px 0 8px 0 !important; }
+        }
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 0 1vw 0 0;
+            }
+            .nav-bar a, .dropdown-btn {
+                font-size: 0.95em;
+                padding: 4px 8px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+        }
+        img, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        section, div, h1, h2, h3, p {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <nav class="nav-bar">
+            <span class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Saunders</span>
+            <div class="dropdown">
+                <button class="dropdown-btn">Services</button>
+                <div class="dropdown-content">
+                    <a href="contact.html">Sell Your Business</a>
+                    <a href="contact.html">Value your Business</a>
+                    <a href="opportunity.html">Buy a Business</a>
+                </div>
+            </div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+    <!-- New blue fullview section -->
+    <section class="fullview-blue">
+        <h1 style="color:#fff; font-family:'Playfair Display',serif; font-size:3em; font-weight:700; margin:0; letter-spacing:2px; text-align:center;">
+            Closing deals since 2018
+        </h1>
+        <p style="color:#fff; font-size:1.3em; max-width:600px; margin:32px auto 0 auto; text-align:center; line-height:1.7;">
+            Since 2018, Saunders & Associates has helped business owners achieve their goals with integrity and expertise.<br>
+            We guide clients through every step of selling, buying, or valuing their business.<br>
+            <br>Our team is committed to building lasting relationships and delivering results that matter. We believe every deal is more than a transaction—it's a milestone. Let us help you take the next step with confidence.
+        </p>
+        <a href="#why" class="down-arrow" style="margin-top:48px; display:flex; justify-content:center; align-items:center; cursor:pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <path d="M10 16l10 10 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </section>
+    <section class="section" id="why">
+        <h2>Why we do what we do?</h2>
+        <p>
+            At Saunders & Associates, we believe that every business owner deserves a trusted partner when navigating the most important transitions of their professional life. Our mission is to empower entrepreneurs, founders, and families to realize the full value of their hard work—whether that means selling, growing, or passing on a legacy. We are driven by a passion for helping people achieve clarity, confidence, and the best possible outcome at every stage of their journey.
+        </p>
+    </section>
+    <section class="team-section" id="team" style="position:relative;">
+        <h2
+            style="
+                position:relative;
+                z-index:3;
+                color:#111d2b;
+                text-align:center;
+                font-size:2.8em;
+                font-family:'Playfair Display',serif;
+                margin-bottom:56px;
+                margin-left:0;
+                margin-right:0;
+                padding-top:-150px;
+                font-weight:700;
+            ">
+            Meet the team
+        </h2>
+        <div style="position:relative; width:100%; max-width:900px; margin:0 auto;">
+            <!-- Blue box behind all images, like negotiate section -->
+            <div class="team-blue-bg"></div>
+            <div class="team-list" style="position:relative; z-index:2;">
+                <div class="team-member">
+                    <img src="./PT/p2.jpg" alt="Paul Saunders" class="team-member-img">
+                    <div class="team-member-desc">
+                        <h3>Paul Saunders</h3>
+                        <p>
+                            Founder & Managing Partner<br>
+                            Paul brings over 20 years of experience in business sales, mergers, and acquisitions. His strategic insight and personal approach have helped hundreds of owners achieve their goals. Paul is known for his integrity, empathy, and relentless advocacy for his clients.
+                        </p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="./PT/p1.jpg" alt="Michael Lee" class="team-member-img">
+                    <div class="team-member-desc">
+                        <h3>Michael Lee</h3>
+                        <p>
+                            Senior Advisor<br>
+                            Michael specializes in business valuation and deal structuring. With a background in finance and entrepreneurship, he guides clients through complex negotiations and ensures every detail is handled with care and precision.
+                        </p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="./PT/a1.jpg" alt="Ava Patel" class="team-member-img">
+                    <div class="team-member-desc">
+                        <h3>Ava Patel</h3>
+                        <p>
+                            Client Success Director<br>
+                            Ava is dedicated to supporting clients from first conversation to closing day. Her focus on communication and service excellence ensures every client feels informed, empowered, and confident throughout the process.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cascading-section" style="padding-bottom:80px;">
+        <div class="cascading-row">
+            <div class="cascading-box blue">
+                <h3>Our Approach</h3>
+                <p>
+                    We combine deep market knowledge with a personal touch. Every client receives a tailored strategy and hands-on guidance from start to finish.
+                </p>
+            </div>
+            <div class="cascading-img">
+                <img src="./PT/pex4.jpg" alt="Our Approach">
+            </div>
+        </div>
+        <div class="cascading-row reverse">
+            <div class="cascading-img">
+                <img src="./PT/pex2.jpg" alt="Our Network">
+            </div>
+            <div class="cascading-box blue">
+                <h3>Extensive Network</h3>
+                <p>
+                    Our connections span industries and regions, giving your business access to the right buyers, sellers, and advisors for every opportunity.
+                </p>
+            </div>
+        </div>
+        <div class="cascading-row">
+            <div class="cascading-box blue">
+                <h3>Proven Results</h3>
+                <p>
+                    With a track record of successful deals, we know how to maximize value and minimize stress for our clients—no matter the size or complexity.
+                </p>
+            </div>
+            <div class="cascading-img">
+                <img src="./PT/pex3.jpg" alt="Proven Results">
+            </div>
+        </div>
+        <div class="cascading-row reverse">
+            <div class="cascading-img">
+                <img src="./PT/pex1.jpg" alt="Ongoing Support">
+            </div>
+            <div class="cascading-box blue">
+                <h3>Ongoing Support</h3>
+                <p>
+                    Our relationship doesn’t end at closing. We’re here to support you with advice, resources, and connections for your next chapter.
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-blue">
+        All rights reserved to Saunders 2025-2028
+    </footer>
+    <script>
+        // Header transparency and color on scroll (matches index.html)
+        const header = document.getElementById('mainHeader');
+        function onScroll() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+    </script>
+</body>
+</html>
